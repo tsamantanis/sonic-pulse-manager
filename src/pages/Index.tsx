@@ -4,8 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Music, Upload, Users, TrendingUp, Download } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const Index = () => {
+  const navigate = useNavigate()
+
   const recentSubmissions = [
     { id: 1, artist: "Aaron C.", track: "Velaiser Anthem", status: "Submitted", file: "Audio File.mp3" },
     { id: 2, artist: "Aaron C.", track: "Velaiser Anthem", status: "Submitted", file: "Audio File.wav" },
@@ -23,6 +26,10 @@ const Index = () => {
     { name: "Artist Name", email: "email@address.com", bio: "Mollit ex et ipsum deserunt magna duis velit ea aliquip dolore eu officia. Amet pariatur dolore dolor caveut veniam sint aliquip exercitation." },
     { name: "Artist Name", email: "email@address.com", bio: "Mollit ex et ipsum deserunt magna duis velit ea aliquip dolore eu officia. Amet pariatur dolore dolor caveut veniam sint aliquip exercitation." },
   ]
+
+  const handleReleaseClick = (releaseId: number) => {
+    navigate(`/releases/${releaseId}`)
+  }
 
   return (
     <Layout>
@@ -82,7 +89,7 @@ const Index = () => {
 
           <div className="space-y-4">
             {recentReleases.map((release) => (
-              <Card key={release.id}>
+              <Card key={release.id} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => handleReleaseClick(release.id)}>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 bg-brand-dark rounded flex items-center justify-center">
@@ -96,7 +103,10 @@ const Index = () => {
                     <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
                       {release.status}
                     </Badge>
-                    <Button className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full">
+                    <Button 
+                      className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       Export to Fuga
                     </Button>
                   </div>

@@ -3,13 +3,20 @@ import Layout from "@/components/Layout"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { useNavigate } from "react-router-dom"
 
 const Releases = () => {
+  const navigate = useNavigate()
+  
   const releases = [
     { id: 1, title: "Velaiser Anthem", artist: "Aaron C.", label: "Velais Old Classics", status: "Published" },
     { id: 2, title: "Velaiser Anthem", artist: "Aaron C.", label: "Velais Old Classics", status: "Published" },
     { id: 3, title: "Velaiser Anthem", artist: "Aaron C.", label: "Velais Old Classics", status: "Published" },
   ]
+
+  const handleReleaseClick = (releaseId: number) => {
+    navigate(`/releases/${releaseId}`)
+  }
 
   return (
     <Layout>
@@ -23,7 +30,7 @@ const Releases = () => {
 
         <div className="space-y-4">
           {releases.map((release) => (
-            <Card key={release.id}>
+            <Card key={release.id} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => handleReleaseClick(release.id)}>
               <CardContent className="p-6">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 bg-brand-dark rounded flex items-center justify-center">
@@ -37,7 +44,10 @@ const Releases = () => {
                   <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
                     {release.status}
                   </Badge>
-                  <Button className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full">
+                  <Button 
+                    className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Export to Fuga
                   </Button>
                 </div>

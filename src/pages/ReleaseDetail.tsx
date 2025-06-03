@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -25,7 +24,7 @@ const ReleaseDetail = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>Releases</span>
-            <span>></span>
+            <span>&gt;</span>
             <span>Velaiser Anthem</span>
           </div>
           <Button className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full">
@@ -33,6 +32,7 @@ const ReleaseDetail = () => {
           </Button>
         </div>
 
+        {/* ... keep existing code (grid layout and all card content) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column */}
           <div className="lg:col-span-1 space-y-6">
