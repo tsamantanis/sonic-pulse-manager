@@ -1,10 +1,9 @@
-
 import { useState } from "react"
 import Layout from "@/components/Layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { StatusSelect } from "@/components/StatusSelect"
-import { Download, Instagram, Spotify, Youtube } from "lucide-react"
+import { Download, Instagram, Music, Youtube } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 const Index = () => {
@@ -62,7 +61,7 @@ const Index = () => {
   const getSocialIcon = (platform: string) => {
     switch (platform) {
       case "instagram": return <Instagram className="w-6 h-6 text-pink-500" />
-      case "spotify": return <Spotify className="w-6 h-6 text-green-500" />
+      case "spotify": return <Music className="w-6 h-6 text-green-500" />
       case "youtube": return <Youtube className="w-6 h-6 text-red-500" />
       default: return <div className="w-6 h-6 bg-gray-300 rounded-full" />
     }
