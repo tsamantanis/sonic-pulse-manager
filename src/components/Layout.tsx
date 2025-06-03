@@ -1,20 +1,25 @@
 
+import { AppSidebar } from "@/components/AppSidebar"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "./AppSidebar"
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
-export default function Layout({ children }: LayoutProps) {
+const Layout = ({ children }: LayoutProps) => {
   return (
-    <SidebarProvider collapsedWidth={56}>
-      <div className="min-h-screen flex w-full bg-gray-50">
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
         <AppSidebar />
         <main className="flex-1 p-6">
+          <div className="mb-4">
+            <SidebarTrigger />
+          </div>
           {children}
         </main>
       </div>
     </SidebarProvider>
   )
 }
+
+export default Layout

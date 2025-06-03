@@ -1,22 +1,78 @@
+
+import { useState } from "react"
 import Layout from "@/components/Layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
-import { Edit, Music, Upload, TrendingUp, DollarSign } from "lucide-react"
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import { Edit, Music, Check } from "lucide-react"
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
 
-const data = [
-  { name: 'Jan', value: 100 },
-  { name: 'Feb', value: 150 },
-  { name: 'Mar', value: 200 },
-  { name: 'Apr', value: 180 },
-  { name: 'May', value: 250 },
-  { name: 'Jun', value: 300 },
-  { name: 'Jul', value: 350 },
+const streamsData = [
+  { name: 'Jan', value: 15420, revenue: 123.36 },
+  { name: 'Feb', value: 18750, revenue: 150.00 },
+  { name: 'Mar', value: 22100, revenue: 176.80 },
+  { name: 'Apr', value: 19800, revenue: 158.40 },
+  { name: 'May', value: 25600, revenue: 204.80 },
+  { name: 'Jun', value: 31200, revenue: 249.60 },
+  { name: 'Jul', value: 35800, revenue: 286.40 },
+]
+
+const revenueData = [
+  { name: 'Jan', value: 123.36 },
+  { name: 'Feb', value: 150.00 },
+  { name: 'Mar', value: 176.80 },
+  { name: 'Apr', value: 158.40 },
+  { name: 'May', value: 204.80 },
+  { name: 'Jun', value: 249.60 },
+  { name: 'Jul', value: 286.40 },
 ]
 
 const ReleaseDetail = () => {
+  const [actionItems, setActionItems] = useState([
+    { id: 1, text: "Generate a Pre-save link", completed: false },
+    { id: 2, text: "Generate a Pitch with AI", completed: false },
+    { id: 3, text: "Get Amelig quote", completed: true },
+    { id: 4, text: "Draft Marketing Campaign", completed: false },
+  ])
+
+  const toggleActionItem = (id: number) => {
+    setActionItems(prev => prev.map(item => 
+      item.id === id ? { ...item, completed: !item.completed } : item
+    ))
+  }
+
+  const StreamsTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-3 border rounded shadow-lg">
+          <p className="font-medium">{label}</p>
+          <p className="text-brand-green">
+            Streams: {payload[0].value.toLocaleString()}
+          </p>
+          <p className="text-blue-600">
+            Revenue: ${payload[0].payload.revenue}
+          </p>
+        </div>
+      )
+    }
+    return null
+  }
+
+  const RevenueTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-3 border rounded shadow-lg">
+          <p className="font-medium">{label}</p>
+          <p className="text-brand-green">
+            Revenue: ${payload[0].value}
+          </p>
+        </div>
+      )
+    }
+    return null
+  }
+
   return (
     <Layout>
       <div className="space-y-6">
@@ -27,12 +83,11 @@ const ReleaseDetail = () => {
             <span>&gt;</span>
             <span>Velaiser Anthem</span>
           </div>
-          <Button className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full">
+          <Button className="bg-brand-green hover:bg-brand-green/90 text-white rounded-full">
             Export to Fuga
           </Button>
         </div>
 
-        {/* ... keep existing code (grid layout and all card content) */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column */}
           <div className="lg:col-span-1 space-y-6">
@@ -112,14 +167,16 @@ const ReleaseDetail = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg">Total Number of Streams</CardTitle>
+                  <p className="text-2xl font-bold text-brand-green">168,670</p>
                 </CardHeader>
                 <CardContent>
                   <div className="h-32">
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={data}>
+                      <LineChart data={streamsData}>
                         <XAxis dataKey="name" hide />
                         <YAxis hide />
-                        <Line type="monotone" dataKey="value" stroke="#06FF01" strokeWidth={2} dot={false} />
+                        <Tooltip content={<StreamsTooltip />} />
+                        <Line type="monotone" dataKey="value" stroke="#00CC00" strokeWidth={2} dot={false} />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
@@ -129,14 +186,16 @@ const ReleaseDetail = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg">Revenue</CardTitle>
+                  <p className="text-2xl font-bold text-brand-green">$1,349.36</p>
                 </CardHeader>
                 <CardContent>
                   <div className="h-32">
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={data}>
+                      <LineChart data={revenueData}>
                         <XAxis dataKey="name" hide />
                         <YAxis hide />
-                        <Line type="monotone" dataKey="value" stroke="#06FF01" strokeWidth={2} dot={false} />
+                        <Tooltip content={<RevenueTooltip />} />
+                        <Line type="monotone" dataKey="value" stroke="#00CC00" strokeWidth={2} dot={false} />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
@@ -151,22 +210,25 @@ const ReleaseDetail = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                    <span>Generate a Pre-save link</span>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                    <span>Generate a Pitch with AI</span>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                    <span>Get Amelig quote</span>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 border rounded-lg hover:bg-gray-50">
-                    <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                    <span>Draft Marketing Campaign</span>
-                  </div>
+                  {actionItems.map((item) => (
+                    <div 
+                      key={item.id}
+                      className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${
+                        item.completed 
+                          ? "bg-green-50 border-green-200" 
+                          : "hover:bg-gray-50"
+                      }`}
+                      onClick={() => toggleActionItem(item.id)}
+                    >
+                      <div className={`w-2 h-2 rounded-full ${
+                        item.completed ? "bg-green-500" : "bg-gray-300"
+                      }`}></div>
+                      <span className={item.completed ? "line-through text-muted-foreground" : ""}>
+                        {item.text}
+                      </span>
+                      {item.completed && <Check className="h-4 w-4 text-green-500 ml-auto" />}
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -179,10 +241,10 @@ const ReleaseDetail = () => {
               </CardHeader>
               <CardContent>
                 <div>
-                  <h4 className="font-medium mb-2">Labore sint in velit.</h4>
+                  <h4 className="font-medium mb-2">Release Performance Notes</h4>
                   <Textarea 
                     className="min-h-[120px] resize-none"
-                    defaultValue="Labore sint in velit veniam laboris in sint magna cunt reprehenderit sint irure. Laboris reprehenderit voluptate tempor sit adipisicing. In fugiat consectetur quis labore dolor irure cupidatat ullamco velit occaecat adipisicing sit irure. Adipisicing ullamco ex qui enim sit exercitation nostrud."
+                    defaultValue="The Velaiser Anthem has performed exceptionally well across all streaming platforms. Strong engagement from the electronic music community with particularly high performance on Spotify and Apple Music. Consider similar releases for Q4 based on this success pattern."
                     readOnly
                   />
                 </div>
