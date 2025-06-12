@@ -30,9 +30,9 @@ const revenueData = [
 
 const ReleaseDetail = () => {
   const [actionItems, setActionItems] = useState([
-    { id: 1, text: "Generate a Pre-save link", completed: false },
+    { id: 1, text: "Generate a Pre-save link", completed: true },
     { id: 2, text: "Generate a Pitch with AI", completed: false },
-    { id: 3, text: "Get Amelig quote", completed: true },
+    { id: 3, text: "Get Ampligo quote", completed: false },
     { id: 4, text: "Draft Marketing Campaign", completed: false },
   ])
 
@@ -81,7 +81,7 @@ const ReleaseDetail = () => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>Releases</span>
             <span>&gt;</span>
-            <span>Velaiser Anthem</span>
+            <span className="text-primary">Velaiser Anthem</span>
           </div>
           <Button className="bg-brand-green hover:bg-brand-green/90 text-white rounded-full">
             Export to Fuga
@@ -95,8 +95,8 @@ const ReleaseDetail = () => {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-20 h-20 bg-brand-dark rounded flex items-center justify-center">
-                    <div className="w-16 h-16 bg-brand-green rounded opacity-80"></div>
+                  <div className="w-20 h-20 bg-brand-dark rounded overflow-hidden flex items-center justify-center">
+                    <img src="/UnseenAlexion-Zenith.png" alt="Velaiser Anthem Cover" className="w-full h-full object-cover" />
                   </div>
                   <div className="flex-1">
                     <h1 className="text-2xl font-bold">Velaiser Anthem</h1>
@@ -150,7 +150,7 @@ const ReleaseDetail = () => {
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="aspect-square bg-brand-dark rounded flex items-center justify-center">
-                    <div className="w-3/4 h-3/4 bg-brand-green rounded opacity-80"></div>
+                    <img src="/UnseenAlexion-Zenith.png" alt="Velaiser Anthem Cover" className="w-full h-full object-cover" />
                   </div>
                   <div className="aspect-square bg-gray-200 rounded flex items-center justify-center">
                     <Music className="h-8 w-8 text-gray-400" />

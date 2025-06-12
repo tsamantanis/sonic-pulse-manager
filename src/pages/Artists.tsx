@@ -15,7 +15,7 @@ const Artists = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold">Artists</h1>
-          <Button className="bg-brand-green hover:bg-brand-green/90 text-black rounded-full">
+          <Button className="bg-brand-green hover:bg-brand-green/90 rounded-full">
             View Artists
           </Button>
         </div>
@@ -41,7 +41,7 @@ const Artists = () => {
                   </div>
                   
                   <div>
-                    <h4 className="font-medium text-sm mb-2">Social + DSP Links</h4>
+                    <h4 className="font-medium text-sm mb-2">Social & DSP Links</h4>
                     <div className="flex gap-2">
                       <div className="w-6 h-6 bg-pink-200 rounded-full"></div>
                       <div className="w-6 h-6 bg-green-200 rounded-full"></div>

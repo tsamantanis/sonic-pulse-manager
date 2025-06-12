@@ -16,9 +16,9 @@ const Index = () => {
   ])
 
   const [releases, setReleases] = useState([
-    { id: 1, title: "Velaiser Anthem", artist: "Aaron C.", label: "Velais Old Classics", status: "released" },
-    { id: 2, title: "Midnight Dreams", artist: "Maya Rodriguez", label: "Velais New Wave", status: "ready to sign" },
-    { id: 3, title: "Electric Nights", artist: "DJ Pulse", label: "Velais Electronic", status: "drafting contract" },
+    { id: 1, title: "Velaiser Anthem", artist: "Aaron C.", label: "Velais Old Classics", status: "released", cover_image: "/UnseenAlexion-Zenith.png" },
+    { id: 2, title: "Midnight Dreams", artist: "Maya Rodriguez", label: "Velais New Wave", status: "ready to sign", cover_image: "/Talal-RiskyBusiness.png" },
+    { id: 3, title: "Electric Nights", artist: "DJ Pulse", label: "Velais Electronic", status: "drafting contract", cover_image: "/Michael-Anthony-1Day.png" },
   ])
 
   const artists = [
@@ -77,7 +77,6 @@ const Index = () => {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">Submissions</h2>
             <Button 
-              className="bg-brand-green hover:bg-brand-green/90 text-white rounded-full"
               onClick={() => navigate("/submissions")}
             >
               View Submissions
@@ -124,7 +123,6 @@ const Index = () => {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">Releases</h2>
             <Button 
-              className="bg-brand-green hover:bg-brand-green/90 text-white rounded-full"
               onClick={() => navigate("/releases")}
             >
               View Releases
@@ -136,8 +134,8 @@ const Index = () => {
               <Card key={release.id} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => handleReleaseClick(release.id)}>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-brand-dark rounded flex items-center justify-center">
-                      <div className="w-12 h-12 bg-brand-green rounded opacity-80"></div>
+                    <div className="w-16 h-16 bg-brand-dark rounded overflow-hidden flex items-center justify-center">
+                      <img src={release.cover_image} alt="Logo" className="h-full w-full" />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">{release.title}</h3>
@@ -152,7 +150,7 @@ const Index = () => {
                       />
                     </div>
                     <Button 
-                      className="bg-brand-green hover:bg-brand-green/90 text-white rounded-full"
+                      variant="outline"
                       onClick={(e) => e.stopPropagation()}
                     >
                       Export to Fuga
@@ -197,7 +195,7 @@ const Index = () => {
                     </div>
                     
                     <div>
-                      <h4 className="font-medium text-sm mb-2">Social + DSP Links</h4>
+                      <h4 className="font-medium text-sm mb-2">Social & DSP Links</h4>
                       <div className="flex gap-2">
                         {artist.social.map((platform, idx) => (
                           <div key={idx}>

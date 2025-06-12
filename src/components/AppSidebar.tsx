@@ -25,30 +25,23 @@ export function AppSidebar() {
   const location = useLocation()
   const currentPath = location.pathname
 
-  const isActive = (path: string) => {
-    if (path === "/") {
-      return currentPath === path
-    }
-    return currentPath.startsWith(path)
-  }
-
   return (
     <Sidebar className="w-60">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          {/* <SidebarGroupLabel>Menu</SidebarGroupLabel> */}
           <SidebarGroupContent>
+            {/* Add Logo */}
+            <div className="flex items-center justify-start mb-4">
+              <img src="/logo.svg" alt="Logo" className="h-20 w-20 rounded-full" />
+            </div>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink 
                       to={item.url} 
-                      className={({ isActive: navActive }) => 
-                        navActive || isActive(item.url) 
-                          ? "bg-muted text-primary font-medium" 
-                          : "hover:bg-muted/50"
-                      }
+                      className={`${((item.url === "/" && currentPath === "/") || (item.url !== "/" && currentPath.startsWith(item.url))) ? "bg-muted text-primary font-medium" : "text-foreground hover:bg-muted/50"}`}
                     >
                       <item.icon className="mr-2 h-4 w-4" />
                       <span>{item.title}</span>

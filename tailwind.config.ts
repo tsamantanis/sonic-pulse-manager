@@ -26,8 +26,8 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#00CC00',
-					foreground: '#ffffff'
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: '#fafafa'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -63,7 +63,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				'brand-green': '#00CC00',
+				'brand-green': 'hsl(var(--primary))',
 				'brand-dark': '#000000'
 			},
 			borderRadius: {
